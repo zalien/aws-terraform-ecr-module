@@ -1,10 +1,12 @@
 resource "aws_ecr_repository" "repo" {
   for_each = var.name
-  name                 = each.value
+  name     = each.value
 
   image_scanning_configuration {
     scan_on_push = true
   }
+  
+  tags = merge(var.tags)
 }
 
 resource "aws_ecr_lifecycle_policy" "repo" {
